@@ -38,12 +38,20 @@ template <class BidirectionalIterator>
   * [1](#1)
   * [2剑指offer06_从尾到头打印链表](#2剑指offer06_从尾到头打印链表)
 
+	
+* [3剑指offer](#3剑指offer)
+  * [06从尾到头打印链表](#06从尾到头打印链表)
+  * [24反转链表](#24反转链表)
+ 
+	
+
 ## 1数组  
 
 ## 2链表    
 
-### 2剑指offer06_从尾到头打印链表  
-[2剑指offer06_从尾到头打印链表](https://leetcode-cn.com/problems/cong-wei-dao-tou-da-yin-lian-biao-lcof/)  
+## 3剑指offer 
+### 06从尾到头打印链表  
+[06从尾到头打印链表](https://leetcode-cn.com/problems/cong-wei-dao-tou-da-yin-lian-biao-lcof/)  
 输入一个链表的头节点，从尾到头反过来返回每个节点的值（用数组返回）。  
 法一：考虑只遍历一次链表的话，栈具有后进先出的特点因此先放入栈，获取栈的size，创建一个大小相同的数组，循环弹出栈的元素到数组。  
 时间复杂度：遍历一遍链表O(n),再遍历一次栈放到数组，O(n),所以时间复杂度是O(n)  
@@ -113,5 +121,5 @@ public:
 };
 ```							   
 					
-							   
-							 
+### 24反转链表							   
+					 
