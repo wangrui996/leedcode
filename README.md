@@ -87,8 +87,7 @@ public:
 时间复杂度：O(n)    
 空间复杂度：O(n)  
 
-法三：递归  	
-			       
+法三：递归  	                           
 ```cpp	
 /**
  * Definition for singly-linked list.
