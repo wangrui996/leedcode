@@ -87,10 +87,32 @@ public:
 时间复杂度：O(n)    
 空间复杂度：O(n)  
 
-法三：递归  
-	
-
-							   
+法三：递归  	
+			       
+```cpp	
+/**
+ * Definition for singly-linked list.
+ * struct ListNode {
+ *     int val;
+ *     ListNode *next;
+ *     ListNode(int x) : val(x), next(NULL) {}
+ * };
+ */
+class Solution {
+public:
+    vector<int> reversePrint(ListNode* head) {
+        //递归解法
+        if(!head)
+        {
+            vector<int> v;
+            return v;
+        }
+        vector<int> v = reversePrint(head->next);
+        v.push_back(head->val);
+        return v;
+    }
+};
+```							   
 					
 							   
 							 
