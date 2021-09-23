@@ -36,7 +36,7 @@ template <class BidirectionalIterator>
   * [](#)
 * [2链表](#2链表)
   * [1](#1)
-  * [2剑指offer06_从尾到头打印链表](#2剑指offer06_从尾到头打印链表)
+  * [206反转链表](#206反转链表)
 
 	
 * [3剑指offer](#3剑指offer)
@@ -48,6 +48,11 @@ template <class BidirectionalIterator>
 ## 1数组  
 
 ## 2链表    
+### 206反转链表  
+同剑指offer24
+
+
+
 
 ## 3剑指offer 
 ### 06从尾到头打印链表  
@@ -122,4 +127,74 @@ public:
 ```							   
 					
 ### 24反转链表							   
-					 
+  本题同leedcode206
+  [视频求解教程](https://leetcode-cn.com/problems/reverse-linked-list/solution/shi-pin-jiang-jie-die-dai-he-di-gui-hen-hswxy/)
+法一：迭代解法  
+将当前节点的next指向前一个节点，因此需要一个prev和cur指针分别指向当前和前一个节点，cur初始值为头节点，prev初始值为nullptr，当cur为nullptr时，返回prev即可； 另外需要注意在修改cur的next指向时先保存一下，否则迭代时就找不到下一个节点了。
+```cpp
+/**
+ * Definition for singly-linked list.
+ * struct ListNode {
+ *     int val;
+ *     ListNode *next;
+ *     ListNode(int x) : val(x), next(NULL) {}
+ * };
+ */
+class Solution {
+public:
+    ListNode* reverseList(ListNode* head) {
+        //迭代
+        //将当前节点的next指向前一个节点，因此需要有个prev节点，和一个cur节点
+        ListNode *prev = nullptr;
+        ListNode *cur = head;
+        while(cur)
+        {
+            ListNode * next = cur->next;
+            cur->next = prev;
+            prev = cur;
+            cur = next;
+        }
+        return prev;
+    }
+};
+```  
+法二：递归解法  
+递归解法需要符合三个条件  
+1.一个大问题能否拆解成两个子问题  
+2.单独看子问题，其解决方式与大问题相同  
+3.存在最小子问题  
+
+对于反转一个单链表，可以拆解成两个子问题，一个是解决头节点对应的问题(反转头节点)；一个是剩余节点组成的问题(将剩余节点反转)；我们看到，头节点是一个节点不需要反转，解决第二个子问题以后，"归"的过程中，整个问题就变成了反转当前头节点和剩余节点组成的整体，其实是反转两个节点；  
+对于子问题，求解方式可以与大问题一致(具有相同结构)；拆到最后，要解决的子问题只剩一个节点时，发现它不需要反转，就找到了最小最问题  
+
+解决思路：  
+"递"的过程不断拆解问题规模，到最后只有一个节点时，执行"归"的过程：两个节点的反转，head->next->next = head; head = nullptr;解决完两个节点子问题后继续往回到3个节点的子问题，此时后两个节点已经反转完成，只需要继续执行head->next->next = head; head = nullptr;反转当前头节点和下一个节点  
+```cpp
+/**
+ * Definition for singly-linked list.
+ * struct ListNode {
+ *     int val;
+ *     ListNode *next;
+ *     ListNode(int x) : val(x), next(NULL) {}
+ * };
+ */
+class Solution {
+public:
+    ListNode* reverseList(ListNode* head) {
+        //递归
+        //终止条件：空节点或者"递"到了最后一个节点(只有一个节点不需要反转，或者说反转完成了已经)
+        if(head == nullptr || head->next == nullptr)
+        {
+            return head;
+        }
+        //“归”的时候需要返回一个已经反转后的链表
+        ListNode *reverse = reverseList(head->next); //不断调用该函数完成“递”的过程
+        //“归”的过程
+        head->next->next = head;
+        head->next = nullptr;
+        //执行完上两步，当前子问题即解决，需要返回的是当前已经反转好的链表，也就是将reverse作为头节点返回
+        return reverse;
+    }
+};
+```  
+
