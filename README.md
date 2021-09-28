@@ -72,9 +72,71 @@ template <class BidirectionalIterator>
 左括号必须用相同类型的右括号闭合。  
 左括号必须以正确的顺序闭合。  
 
+示例 1：
 
+	输入：s = "()"
+	输出：true
+示例 2：
 
+	输入：s = "()[]{}"
+	输出：true
+示例 3：
 
+	输入：s = "(]"
+	输出：false
+示例 4：
+
+	输入：s = "([)]"
+	输出：false
+示例 5：
+
+	输入：s = "{[]}"
+	输出：true
+
+提示：
+
+	1 <= s.length <= 104
+	s 仅由括号 '()[]{}' 组成
+
+方法一:
+利用栈后进先出的特点
+遍历字符串，用一个栈存储还没有产生匹配的括号字符，栈顶永远存储的是最"内层"的括号字符；具体的，当每遍历一个字符的时候，先看下栈中元素是否为空，为空说明之前的字符都被“抵消”了，可以直接将当前字符放进去；如果不为空，则判断它与栈顶的括号字符是否是匹配关系，匹配的话就弹出栈顶元素，不匹配的话就将当前字符入栈；
+需要注意的是匹配关系中，key和value的顺序不能反过来；因为"()"是匹配的但是“)(”不可以，而每种括号字符与前面的括号字符匹配时，一定是右括号为key来查找是否与前面的左括号value匹配；
+
+```cpp
+class Solution {
+public:
+    bool isValid(string s) {
+        unordered_map<char, char> pairs = {
+            {')', '('},
+            {'}', '{'},
+            {']', '['},
+        };
+        if(s.empty())
+            return true;
+        stack<char> stk;
+        for(char ch : s)
+        {
+            if(stk.empty())
+            {
+                stk.push(ch);
+            }
+            else if(pairs[ch] == stk.top())
+            {
+                stk.pop();
+            }
+            else
+            {
+                stk.push(ch);
+            }
+        }
+        if(stk.empty())
+            return true;
+        else
+            return false;
+    }
+};
+```
 
 ## 3剑指offer
 
@@ -91,6 +153,8 @@ template <class BidirectionalIterator>
     输入：
     [2, 3, 1, 0, 2, 5, 3]
     输出：2 或 3   
+
+
 
 限制：  
 
