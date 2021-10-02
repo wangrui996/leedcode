@@ -41,7 +41,25 @@ template <class BidirectionalIterator>
 * [3栈](#3栈)
   * [20有效的括号](#20有效的括号)
   
+* [4队列](#4队列)
+  * [232用栈实现队列](#232用栈实现队列)
 
+* [二分法](#二分法)
+
+
+
+
+
+执行用时：
+0 ms
+, 在所有 C++ 提交中击败了
+100.00%
+的用户
+内存消耗：
+6.8 MB
+, 在所有 C++ 提交中击败了
+48.36%
+的用户
 	
 * [3剑指offer](#3剑指offer)
   * [03数组中重复的数字](#03数组中重复的数字)
@@ -224,6 +242,224 @@ public:
     }
 };
 ```
+
+## 4队列  
+
+### 232用栈实现队列    
+[leedcode链接](https://leetcode-cn.com/problems/implement-queue-using-stacks/) 
+题目描述：
+请你仅使用两个栈实现先入先出队列。队列应当支持一般队列支持的所有操作（push、pop、peek、empty）：
+
+实现 MyQueue 类：  
+
+	void push(int x) 将元素 x 推到队列的末尾
+	int pop() 从队列的开头移除并返回元素
+	int peek() 返回队列开头的元素
+	boolean empty() 如果队列为空，返回 true ；否则，返回 false  
+
+说明：  
+
+	你只能使用标准的栈操作 —— 也就是只有 push to top, peek/pop from top, size, 和 is empty 操作是合法的。
+	你所使用的语言也许不支持栈。你可以使用 list 或者 deque（双端队列）来模拟一个栈，只要是标准的栈操作即可。  
+
+进阶： 
+
+	你能否实现每个操作均摊时间复杂度为 O(1) 的队列？换句话说，执行 n 个操作的总时间复杂度为 O(n) ，即使其中一个操作可能花费较长时间。  
+
+示例：  
+
+	输入：
+	["MyQueue", "push", "push", "peek", "pop", "empty"]
+	[[], [1], [2], [], [], []]
+	输出：
+	[null, null, null, 1, 1, false]
+
+	解释：
+	MyQueue myQueue = new MyQueue();
+	myQueue.push(1); // queue is: [1]
+	myQueue.push(2); // queue is: [1, 2] (leftmost is front of the queue)
+	myQueue.peek(); // return 1
+	myQueue.pop(); // return 1, queue is [2]
+	myQueue.empty(); // return false  
+
+提示：  
+
+	1 <= x <= 9
+	最多调用 100 次 push、pop、peek 和 empty
+	假设所有操作都是有效的 （例如，一个空的队列不会调用 pop 或者 peek 操作）  
+
+
+思路分析：  
+	用栈实现题目要求的队列，那么主要问题就是要考虑队列的队首和队尾分别在哪，并且由于队列和栈操作数据的方式不同仅用一个栈无法实现该功能因此用题目要求的两个栈表示队列。
+
+这里记录下我思考的过程：
+最开始考虑将一个栈作为队列的数据区，另一个栈在某些操作时临时存放队列元素;   
+这样需要考虑队首是在栈顶还是栈底:  
+
+方法一：  
+队首在栈1的栈顶：  
+出队pop()、取队首元素peak()、判断是否为空empty()的时间和空间复杂度是O(1);  
+入队push(x)的时候需要先将栈1元素全部弹出到栈2，然后把新元素压入栈1，再把栈2中所有元素弹出并压入栈1；时间复杂度是O(n),空间复杂度O(n);  
+
+时间复杂度：O(n)
+空间复杂度：O(n),需要额外的一个栈来协助完成入队操作  
+
+
+方法二：  
+也是我的第一版答案  
+当时还不知道摊还的概念，想的就是每次执行完入队或者出队后，如果紧接着再执行相同的操作就不要重复操作所有元素了。  
+于是把队列myqueue设置成一个可变的，可能是栈1，也可能是栈2
+栈1表示队列时，栈顶作为队首，栈2表示队列时，栈顶作为队尾；
+初始化队列myqueue为stk1，每次执行相关操作时先根据myqueue是stk1或stk2来判断是否要操作所有元素，具体可看代码注释
+
+但该方法在无法保证每次的操作是什么时，无法保证时间复杂度，我们主要看入队和出队：   
+入队时元素可能在stk1也可能在stk2，所以最坏时间复杂度是O(n)，出队时同理
+
+```cpp
+
+class MyQueue {
+public:
+    MyQueue() {
+        stk1 = new stack<int>();
+        stk2 = new stack<int>();
+        myqueue = stk1;
+    }
+    
+    void push(int x) {
+        if(myqueue == stk1) //入队操作，如果是队列是stk1(元素全部在stk1中)，先拿到stk2中
+        {
+            while(!stk1->empty())
+            {
+                stk2->push(stk1->top());
+                stk1->pop();
+            }
+            myqueue = stk2;
+        }
+       
+        myqueue->push(x); //将新元素压入栈，如果此时全部元素已经在栈2了则不需要动
+    }
+    
+    int pop() {
+        if(myqueue == stk2)
+        {
+            while(!stk2->empty())
+            {
+                stk1->push(stk2->top());
+                stk2->pop();
+            }
+            myqueue = stk1;
+        }
+        int front = myqueue->top();
+        myqueue->pop();
+        return front;
+    }
+    
+    int peek() {
+        if(myqueue == stk2)
+        {
+            while(!stk2->empty())
+            {
+                stk1->push(stk2->top());
+                stk2->pop();
+            }
+            myqueue = stk1;
+        }
+        return myqueue->top();
+    }
+    
+    bool empty() {
+        if(myqueue->empty())
+            return true;
+        else
+            return false;
+    }
+
+private:
+    stack<int> *stk1;
+    stack<int> *stk2;
+    stack<int> *myqueue;
+};
+
+/**
+ * Your MyQueue object will be instantiated and called as such:
+ * MyQueue* obj = new MyQueue();
+ * obj->push(x);
+ * int param_2 = obj->pop();
+ * int param_3 = obj->peek();
+ * bool param_4 = obj->empty();
+ */
+```
+
+
+方法三：
+
+把队首设置在栈1的栈尾：  
+
+方法二虽然在执行重复操作时还可以，但是如果入队出队交替进行，需要不断移动全部元素。考虑栈1的栈顶始终作为队尾，入队时一直在栈1进行，出队操作将栈1全部元素放入栈2(栈顶变栈尾)，后面执行出队一直从栈2的栈顶弹出，入队仍然在栈1；当出队时发现栈2元素为0时，再从栈1中全部元素放入栈2；
+
+入队push(x)、判断是否为空empty()的时间复杂度为O(1);  
+出队pop()或者取首元素peak()：先把栈1中所有元素弹出并放到栈2，此时栈2的栈顶元素是栈1的栈尾元素，也就是队首元素；但是注意，在执行完一次出队或取首元素操作后，我们不将栈2所有元素再放回去，因为下一次操作如果还是出队或取首元素，那么仍然对全部元素进行上述操作，这样出队或取首元素的时间复杂度就是O(n); 利用摊还的思想，我们执行一次出队或者取首元素操作后，栈2中的元素已经非常适合出队和取首元素的操作了，因此我们考虑不将全部元素再放回去，此时如果出队或取首元素就从栈2的栈顶操作，如果入队直接向栈1的栈顶压入即可；另外，当执行出队或者取首元素时发现栈2为空时，就再将栈1的全部元素放到栈2； 这样的话，最坏时间复杂度是O(n),摊还复杂度O(1);空间复杂度O(1)；
+进一步的，如果我们在首次执行入队操作时记录该元素为队首front，在之后执行入队、判断是否为空和取首元素时不改变它；在出队完成后，重新将栈2新的栈顶元素置为front；这样其它操作的复杂度不变，取首元素的时间复杂度为O(1)(不记录的话最坏情况下取首元素时要操作所有元素)
+
+
+```cpp
+class MyQueue {
+public:
+    MyQueue() {
+        stk1 = new stack<int>();
+        stk2 = new stack<int>();
+    }
+    //入队时向stk1压入
+    void push(int x) {
+		stk1->push(x);	 
+    }
+    //由于pop()和peek()有重复的操作，这里复用peek()的操作先获取队首元素
+    int pop() {		
+		int front = peek();
+        stk2->pop(); 
+        return front;
+    }
+   
+    int peek() {
+        if(stk2->empty())
+		{
+			while(!stk1->empty())
+            {
+                stk2->push(stk1->top());
+                stk1->pop();
+            }
+		}
+        int front = stk2->top();  
+        return front;
+    }
+    
+    bool empty() {
+        if(stk1->empty() && stk2->empty())
+            return true;
+        else
+            return false;
+    }
+private:
+    stack<int> *stk1;
+    stack<int> *stk2;
+};
+/**
+ * Your MyQueue object will be instantiated and called as such:
+ * MyQueue* obj = new MyQueue();
+ * obj->push(x);
+ * int param_2 = obj->pop();
+ * int param_3 = obj->peek();
+ * bool param_4 = obj->empty();
+ */
+```
+
+
+
+
+ 
+
+
+
 
 
 
@@ -420,3 +656,12 @@ public:
 };
 ```  
 
+## 二分法  
+
+0704.二分查找一个数
+    * [leedcode.0704.二分查找]()  
+
+该题提示了数组中元素是不重复的,如果有序数组中有重复的,我们想要返回目标值的左侧边界或者右侧边界,上题中的做法就不能满足了,例如nums = [0,1,1,2,3],target为1时,返回的是2  
+看下面的题,
+
+    * [leedcode.0034.在排序数组中查找元素的第一个和最后一个位置]()
