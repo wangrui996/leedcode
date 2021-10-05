@@ -219,5 +219,40 @@ public:
 
     * [leedcode.0704.二分查找]() 
     * [leedcode.0034.在排序数组中查找元素的第一个和最后一个位置]()
+    * [leedcode.0035.搜索插入位置](https://leetcode-cn.com/problems/search-insert-position/)  
+    * [leedcode.0069.求x的平方根Sqrt(x)](https://leetcode-cn.com/problems/sqrtx/)
+    * [leedcode.0367.有效的完全平方数](https://leetcode-cn.com/problems/valid-perfect-square/)
+
+
+
+
+## leedcode.0035.搜索插入位置 
+
+
+### 
+```cpp
+class Solution {
+public:
+    int searchInsert(vector<int>& nums, int target) {
+        if(nums[0] > target)return 0;
+        if(nums[nums.size() - 1] < target)return nums.size();
+        int left = 0, right = nums.size() - 1;
+        int mid;
+        while(left <= right)
+        {   
+            mid = left + (right - left) / 2;
+            if(nums[mid] == target)
+                return mid;
+            else if(nums[mid] < target)
+                left = mid + 1;
+            else if(nums[mid] > target)
+                right = mid - 1;
+        }
+        return left;
+    }
+};
+```
+
+
 
 
