@@ -222,6 +222,7 @@ public:
     * [leedcode.0035.搜索插入位置](https://leetcode-cn.com/problems/search-insert-position/)  
     * [leedcode.0069.求x的平方根Sqrt(x)](https://leetcode-cn.com/problems/sqrtx/)
     * [leedcode.0367.有效的完全平方数](https://leetcode-cn.com/problems/valid-perfect-square/)
+    * [leedcode.0441.排列硬币](https://leetcode-cn.com/problems/arranging-coins/)
 
 
 

@@ -243,4 +243,71 @@ public:
 };
 ```  
 
-### 方法2 
+### 方法2　　
+
+
+
+
+
+
+
+### 0441.排列硬币
+[leecode链接](https://leetcode-cn.com/problems/arranging-coins/)　　
+
+### 方法1 数学法　　
+假设n个元素刚好为k行，则(1+k)*k/2  = n; k  = (-1 + sqrt(1 + 8 * n)) / 2;
+注意这里n范围是1 <= n <= 2^31 - 1, 8 * n可能会溢出，所以需要用long转一下
+```cpp
+class Solution {
+public:
+    int arrangeCoins(int n) {
+        int ans;
+        long ln = n;
+        ans = (-1 + sqrt(1 + 8 * ln)) / 2;
+        return ans;
+    }
+};
+```
+
+或者直接简洁点
+```cpp
+class Solution {
+public:
+    int arrangeCoins(int n) {
+        return (int)(-1 + sqrt(1 + (long long) 8 * n)) / 2;
+    }
+};
+```
+
+### 方法2 二分法  
+练习下二分法  
+```cpp
+class Solution {
+public:
+    int arrangeCoins(int n) {
+        //练习二分法,第1行到第mid行的元素个数和为sum = (1 + mid) * mid / 2; 
+        //通过比较sum与n决定区间怎么变化
+        int left = 1, right = n;
+        int mid;
+        while(left <= right)
+        {
+            mid = left + (right - left) / 2;
+            long sum = (long long)(1 + mid) * mid / 2;
+            if(sum > n) //意思是假设有mid行，这样算出来总元素个数就超过n了，因此一定少于mid行
+                right = mid - 1;
+            else if(sum < n)//假设有mid行算出来总元素个数还不够n，因此一定多于mid行
+                left = mid + 1;
+            else if(sum == n)//mid行，算出来总元素个数正好为n，那就是正好有mid行，直接返回mid
+                return mid;
+        }
+        //最后left > right,最后一次比较的时候，如果sum>n,right=mid-1.left就对应mid处，此时说明实际上第mid行没填满(因为按照填满算超出总元素个数了)，应该返回right(left-1或mid-1)
+        //如果sum<n,left=mid+1,right对应mid处，此时说明第mid行都填满了，但加起来还不够n，第left行肯定有元素但肯定没有填满，因此返回right
+        return right;
+    }
+};
+```
+
+
+
+
+
