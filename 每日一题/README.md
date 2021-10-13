@@ -247,10 +247,6 @@ public:
 
 
 
-
-
-
-
 ### 0441.排列硬币
 [leecode链接](https://leetcode-cn.com/problems/arranging-coins/)　　
 
@@ -306,6 +302,60 @@ public:
     }
 };
 ```
+
+
+
+
+### 0412.Fizz Buzz 2021/10/13
+[leecode链接](https://leetcode-cn.com/problems/fizz-buzz/)  
+
+简单题，，注意数值转字符串方法 std::to_string(value)
+
+```cpp
+class Solution {
+public:
+    vector<string> fizzBuzz(int n) 
+    {
+        vector<string> ans;
+        for(int i = 1; i < n + 1; ++i)
+        {
+            string s;
+            if(i % 3 == 0)
+                s += "Fizz";
+            if(i % 5 == 0)
+                s += "Buzz";
+            if(i % 3 != 0 && i % 5 != 0)
+                s += to_string(i);
+            ans.push_back(s);
+        }
+        return ans;
+    }
+};
+```
+或  
+
+```cpp
+class Solution {
+public:
+    vector<string> fizzBuzz(int n) 
+    {
+        vector<string> ans;
+        for(int i = 1; i < n + 1; ++i)
+        {
+            string s;
+            if(i % 3 == 0)
+                s += "Fizz";
+            if(i % 5 == 0)
+                s += "Buzz";
+            if(s.empty())
+                s += to_string(i);
+            ans.push_back(s);
+        }
+        return ans;
+    }
+};
+```  
+
 
 
 
