@@ -382,5 +382,15 @@ public:
         return left;
     }
 };
-```
+```  
+
+### 240. 搜索二维矩阵 II 2021/10/25
+[leecode链接](https://leetcode-cn.com/problems/fizz-buzz/https://leetcode-cn.com/problems/search-a-2d-matrix-ii/)  
+
+### 思路分析  
+1.由二分的想法很容易想到实现O(mlongn)时间复杂度的做法，就是遍历每一行，然后对每一行进行二分求解；  
+2.能不能实现O(n)的时间复杂度？刚才的做法只利用了每一行是排序好的这一特点，但是每一列也是排列好的，能不能利用上？
+
+
+
 

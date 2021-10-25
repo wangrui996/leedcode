@@ -217,13 +217,14 @@ public:
 ```
 
 
-    * [leedcode.0704.二分查找]() 
+    * [leedcode.0704.二分查找](https://leetcode-cn.com/problems/binary-search/) 
     * [leedcode.0034.在排序数组中查找元素的第一个和最后一个位置]()
     * [leedcode.0035.搜索插入位置](https://leetcode-cn.com/problems/search-insert-position/)  
     * [leedcode.0069.求x的平方根Sqrt(x)](https://leetcode-cn.com/problems/sqrtx/)
     * [leedcode.0367.有效的完全平方数](https://leetcode-cn.com/problems/valid-perfect-square/)
-    * [leedcode.0441.排列硬币](https://leetcode-cn.com/problems/arranging-coins/)
-
+    * [leedcode.0441.排列硬币](https://leetcode-cn.com/problems/arranging-coins/)  
+    * [leedcode.0074.搜索二维矩阵](https://leetcode-cn.com/problems/search-a-2d-matrix/)
+    * [leedcode.0240.搜索二维矩阵 II](https://leetcode-cn.com/problems/search-a-2d-matrix-ii/)
 
 
 
