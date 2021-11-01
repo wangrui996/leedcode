@@ -109,7 +109,7 @@ public:
     }
     double unsignedMyPow(double x, unsigned int n)
     {
-        double res = 1;
+        double res = 1.0;
         if(n == 1)
             return x;
         while(n)
