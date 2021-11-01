@@ -45,7 +45,7 @@
 **二进制角度分析快速幂**  
 * 1.十进制正整数n表示成二进制为“bm...b3b2b1”  
     * 二进制形式转换成十进制形式：n = 2<sup>0</sup>b1 + 2<sup>1</sup>b2 + 2<sup>m-1</sup>bm  
-    * x的n次幂展开： x<sup>n</sup> = x<sup>2<sup>0</sup>b1 + 2<sup>1</sup>b2 + 2<sup>m-1</sup>bm</sup>=x<sup>b1</sup>(x<sup>2</sup>)<sup>b2</sup>...(x<sup>2<sup>m-1</sup>)<sup>bm</sup>  
+    * x的n次幂展开： x<sup>n</sup> = (x)<sup>2<sup>0</sup>b1 + 2<sup>1</sup>b2 + 2<sup>m-1</sup>bm</sup>=x<sup>b1</sup>(x<sup>2</sup>)<sup>b2</sup>...(x<sup>2<sup>m-1</sup>)<sup>bm</sup>  
 
 * 2.经过上面的转换问题就变成了两个子问题，我们用循环解决：  
     * 2.1 求x<sup>1</sup>，x<sup>2</sup>，x<sup>4</sup>,...x<sup>2<sup>m-1</sup></sup>,只需要x = x<sup>2</sup>  
@@ -109,7 +109,7 @@ public:
     }
     double unsignedMyPow(double x, unsigned int n)
     {
-        double res = 1;
+        double res = 1.0;
         if(n == 1)
             return x;
         while(n)
