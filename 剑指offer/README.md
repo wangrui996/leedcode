@@ -16,7 +16,7 @@
 3.[0038.字符串的排列](https://github.com/wangrui996/leedcode/blob/master/%E5%89%91%E6%8C%87offer/medium/0038.%E5%AD%97%E7%AC%A6%E4%B8%B2%E7%9A%84%E6%8E%92%E5%88%97.md)  
 
 
-4.[0047.礼物的最大价值]()  
+4.[0047.礼物的最大价值](https://github.com/wangrui996/leedcode/blob/master/%E5%89%91%E6%8C%87offer/medium/0047.%E7%A4%BC%E7%89%A9%E7%9A%84%E6%9C%80%E5%A4%A7%E4%BB%B7%E5%80%BC.md)  
 * 动态规划已经实现了O(N)的空间复杂度，如果允许操作原数组，实现O(1)的空间复杂度
 
 * 1.剑指offer P197 本题的扩展和举一反三  
