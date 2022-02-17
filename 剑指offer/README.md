@@ -25,6 +25,9 @@
 5.[0048.最长不含重复字符的子字符串](https://github.com/wangrui996/leedcode/blob/master/%E5%89%91%E6%8C%87offer/medium/0048.%E6%9C%80%E9%95%BF%E4%B8%8D%E5%90%AB%E9%87%8D%E5%A4%8D%E5%AD%97%E7%AC%A6%E7%9A%84%E5%AD%90%E5%AD%97%E7%AC%A6%E4%B8%B2.md)
 剑指offer上提供的是动态规划解法，看下题解
 
+
+6.[0056-II]()理解剑指offer做法后看leedcode题解做法  
+
 ## 需要加强理解的题目  
 
 
