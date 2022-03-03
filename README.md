@@ -35,6 +35,17 @@ template <class BidirectionalIterator>
 ```
 
 
+## unordered_set  
+
+
+**注意：**  
+哈希集合和vector可以直接相互转换  
+比如：  
+unordered_set<int> set(v.begin(), v.end());  
+vector<int> v(set.begin(), set.end());  
+应用：可看代码随想录题解
+[leedcode 0349.两个数组的交集](https://leetcode-cn.com/problems/intersection-of-two-arrays/)  
+
 
 # leedcode  
 * [1数组](#1数组)
