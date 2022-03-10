@@ -188,5 +188,14 @@ int strStr(string s, string sub) {
 
 ***继续分析** ： 如下图  在i=5处发生了匹配失败，此时我们有个**重要信息**是**前面的匹配成功的串**   
 
+![image](https://user-images.githubusercontent.com/58176267/157580252-779a7d47-67f8-44a1-a1eb-6375ad660ad9.png)
+
+
+
+
 我们试着移动一下i  i等于0开始匹配，发现在i=5时冲突，那么令i=1，j=0重新匹配，
+
+
+
+
 
