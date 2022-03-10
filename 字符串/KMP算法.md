@@ -188,7 +188,8 @@ int strStr(string s, string sub) {
 
 ***继续分析** ： 如下图  在i=5处发生了匹配失败，此时我们有个**重要信息**是**前面的匹配成功的串**   
 
-![image](https://user-images.githubusercontent.com/58176267/157580252-779a7d47-67f8-44a1-a1eb-6375ad660ad9.png)
+![image](https://user-images.githubusercontent.com/58176267/157580463-51574a92-f450-4589-b044-0de270f958c3.png)
+
 
 
 
